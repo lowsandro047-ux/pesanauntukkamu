@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untuk kamu</title>
+  <meta name="description" content="Sebuah pesan kecil untuk kamu." />
+  <meta name="theme-color" content="#0f3df5" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <main class="app" id="app" data-page="intro">
+
+    <!-- Kartu biru: boneka pink di dalam dial (di halaman 1 jadi layar penuh) -->
+    <section class="hero">
+      <svg class="dial" id="dial" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="arcGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#8ff0d4" />
+            <stop offset="1" stop-color="#ffb3d1" />
+          </linearGradient>
+        </defs>
+
+        <g id="ticks"></g>
+        <circle cx="120" cy="120" r="98" fill="#fff" opacity=".12" />
+        <circle cx="120" cy="120" r="80" fill="#0a2fd6" />
+        <circle cx="120" cy="120" r="90" fill="none" stroke="#fff" stroke-opacity=".2" stroke-width="8" />
+        <circle id="arc" cx="120" cy="120" r="90" fill="none" stroke="url(#arcGrad)" stroke-width="8"
+                stroke-linecap="round" transform="rotate(-90 120 120)" />
+        <g id="knobG">
+          <circle cx="120" cy="30" r="8" fill="#fff" stroke="#a9bcff" stroke-width="3" />
+        </g>
+
+        <!-- Gelombang ledakan -->
+        <circle class="shock s1" cx="120" cy="120" r="44" fill="none" stroke="#fff" stroke-width="3" vector-effect="non-scaling-stroke" />
+        <circle class="shock s2" cx="120" cy="120" r="44" fill="none" stroke="#ffb3d1" stroke-width="3" vector-effect="non-scaling-stroke" />
+        <circle class="shock s3" cx="120" cy="120" r="44" fill="none" stroke="#fff" stroke-width="2" vector-effect="non-scaling-stroke" />
+
+        <ellipse class="shadow" cx="120" cy="177" rx="30" ry="5" fill="#04186b" />
+
+        <!-- Boneka pink -->
+        <g transform="translate(60 57) scale(.6)">
+          <g class="char">
+            <g class="flip">
+              <g class="ear ear-l">
+                <circle cx="52" cy="58" r="24" fill="#ff77a9" />
+                <circle cx="52" cy="58" r="13" fill="#ffc2da" />
+              </g>
+              <g class="ear ear-r">
+                <circle cx="148" cy="58" r="24" fill="#ff77a9" />
+                <circle cx="148" cy="58" r="13" fill="#ffc2da" />
+              </g>
+              <ellipse class="foot foot-l" cx="72" cy="184" rx="20" ry="11" fill="#ff77a9" />
+              <ellipse class="foot foot-r" cx="128" cy="184" rx="20" ry="11" fill="#ff77a9" />
+              <ellipse cx="100" cy="120" rx="66" ry="62" fill="#ff8fba" />
+              <ellipse cx="100" cy="140" rx="40" ry="34" fill="#ffd3e3" />
+              <ellipse class="arm arm-l" cx="36" cy="132" rx="14" ry="22" fill="#ff77a9" />
+              <ellipse class="arm arm-r" cx="164" cy="132" rx="14" ry="22" fill="#ff77a9" />
+
+              <g class="eyes">
+                <ellipse cx="76" cy="108" rx="9" ry="11" fill="#2b1b3d" />
+                <ellipse cx="124" cy="108" rx="9" ry="11" fill="#2b1b3d" />
+                <circle cx="79" cy="104" r="3.4" fill="#fff" />
+                <circle cx="127" cy="104" r="3.4" fill="#fff" />
+              </g>
+              <g class="eyes-happy">
+                <path d="M66 112 Q76 96 86 112" fill="none" stroke="#2b1b3d" stroke-width="5" stroke-linecap="round" />
+                <path d="M114 112 Q124 96 134 112" fill="none" stroke="#2b1b3d" stroke-width="5" stroke-linecap="round" />
+              </g>
+
+              <ellipse cx="56" cy="128" rx="11" ry="7" fill="#ff5c93" opacity=".5" />
+              <ellipse cx="144" cy="128" rx="11" ry="7" fill="#ff5c93" opacity=".5" />
+              <path class="mouth-smile" d="M88 128 Q100 140 112 128" fill="none" stroke="#2b1b3d" stroke-width="4" stroke-linecap="round" />
+              <path class="mouth-happy" d="M86 125 Q100 154 114 125 Z" fill="#c2336b" stroke="#2b1b3d" stroke-width="3.5" stroke-linejoin="round" />
+              <path class="held-heart" d="M100 168 C 86 158, 82 146, 92 144 C 97 143, 100 147, 100 149 C 100 147, 103 143, 108 144 C 118 146, 114 158, 100 168 Z" fill="#ff3d7f" />
+            </g>
+          </g>
+        </g>
+      </svg>
+
+      <div class="hero-chip">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="#ffb3d1" /></svg>
+        <span id="percent">33%</span>
+      </div>
+
+      <!-- Halaman 1: pesan pembuka + tombol Lanjut -->
+      <div class="screen active" id="screen-intro">
+        <span class="eyebrow" id="greetTitle"></span>
+        <h1 id="introTitle"></h1>
+        <p class="lead" id="introText"></p>
+        <button class="btn-white" id="btnStart" type="button">
+          Lanjut
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- Panel: halaman 2 dan 3 -->
+    <section class="panel">
+
+      <!-- Halaman 2: pertanyaan -->
+      <div class="screen" id="screen-ask">
+        <div class="card-head">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H10l-5 4v-4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z" /></svg>
+          <div>
+            <div class="title">Satu pertanyaan</div>
+            <div class="sub">Jawab dengan jujur ya</div>
+          </div>
+        </div>
+
+        <h1 id="askTitle"></h1>
+        <p class="lead" id="askHint"></p>
+
+        <div class="choices" id="actions">
+          <button class="choice choice-yes" id="btnYes" type="button">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg>
+            <strong>Iya</strong>
+            <small>Dengan senang hati</small>
+          </button>
+          <div class="choice-slot" id="noSlot">
+            <button class="choice choice-no" id="btnNo" type="button">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+              <strong>Tidak</strong>
+              <small>Coba aja kalau bisa</small>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Halaman 3: terima kasih -->
+      <div class="screen" id="screen-thanks">
+        <div class="card-head">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>
+          <div>
+            <div class="title">Pesan terakhir</div>
+            <div class="sub">Dari aku untuk kamu</div>
+          </div>
+        </div>
+
+        <h1 id="thanksTitle"></h1>
+        <p class="lead" id="thanksMsg"></p>
+
+        <ul class="rows">
+          <li class="row">
+            <span class="tile"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" /></svg></span>
+            <div><strong>Pacaran</strong><small>Status<i class="sep"></i>Mulai hari ini</small></div>
+          </li>
+        </ul>
+
+        <button class="btn-soft" id="btnAgain" type="button">
+          Ledakan lagi
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </button>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
